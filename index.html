@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>De zéro au code</title>
+<meta name="description" content="Manuel de Python interactif, du premier print au niveau intermédiaire.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zéro au code">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#132022" media="(prefers-color-scheme: dark)">
+<style>
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/bricolage-grotesque-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/bricolage-grotesque-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/bricolage-grotesque-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:800;font-display:swap;src:url("fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2")}
+@font-face{font-family:"Literata";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/literata-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Literata";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/literata-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Literata";font-style:italic;font-weight:400;font-display:swap;src:url("fonts/literata-latin-400-italic.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/jetbrains-mono-latin-600-normal.woff2") format("woff2")}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
+</style>
+<style>/* Layout: sticky level map on the left, one level at a time in a reading column; every code block is a live editor with a console underneath. */
+:root {
+  --bg: #f3f6f5;
+  --paper: #ffffff;
+  --ink: #0d4b53;
+  --ink-2: #13707b;
+  --ink-soft: #e0eeee;
+  --pen: #c2410c;
+  --pen-soft: #fdf0e7;
+  --ok: #1f7a4d;
+  --ok-soft: #e3f3ea;
+  --near: #9a5b00;
+  --near-soft: #fdf1dd;
+  --gold: #a86b00;
+  --gold-soft: #fbf1d9;
+  --text: #182326;
+  --muted: #586a6d;
+  --rule: #d2dfdf;
+  --code-bg: #0f2427;
+  --code-fg: #e4eeec;
+  --code-dim: #86a3a5;
+  --code-line: #1d3a3e;
+  --sx-kw: #ff9d6c;
+  --sx-str: #b9e58a;
+  --sx-num: #f6cd61;
+  --sx-com: #7f9a9c;
+  --sx-fn: #8ccfff;
+  --sx-self: #d8a6ff;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1516; --paper: #132022; --ink: #7fd3d6; --ink-2: #a5e3e5; --ink-soft: #1c3134;
+    --pen: #ff9a6b; --pen-soft: #3a2219; --ok: #6fd3a0; --ok-soft: #173327; --near: #f0b357; --near-soft: #3a2c14;
+    --gold: #f2c25a; --gold-soft: #33290f; --text: #e3eceb; --muted: #95aaab; --rule: #284043;
+    --code-bg: #091416; --code-line: #183033; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1516; --paper: #132022; --ink: #7fd3d6; --ink-2: #a5e3e5; --ink-soft: #1c3134;
+  --pen: #ff9a6b; --pen-soft: #3a2219; --ok: #6fd3a0; --ok-soft: #173327; --near: #f0b357; --near-soft: #3a2c14;
+  --gold: #f2c25a; --gold-soft: #33290f; --text: #e3eceb; --muted: #95aaab; --rule: #284043;
+  --code-bg: #091416; --code-line: #183033; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 17px; line-height: 1.6; margin: 0; }
+h1, h2, h3, h4 { font-family: var(--display); color: var(--ink); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.015em; }
+h3 { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.6rem; }
+h4 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0 0 0.8rem; }
+strong { font-weight: 600; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 2.5px solid var(--ink-2); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--ink-soft); color: var(--ink); padding: 0.05em 0.35em; border-radius: 4px; white-space: nowrap; }
+
+.shell { display: grid; grid-template-columns: 290px minmax(0, 1fr); min-height: 100vh; }
+.side { position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; overflow-y: auto; border-right: 1px solid var(--rule); background: var(--paper); padding: 1.2rem 1rem 2rem; }
+.brand { display: block; text-decoration: none; margin-bottom: 1rem; }
+.brand b { font-family: var(--display); font-weight: 800; font-size: 1.35rem; color: var(--ink); letter-spacing: -0.02em; display: block; line-height: 1.05; }
+.brand span { font-size: 0.78rem; color: var(--muted); font-family: var(--display); }
+.xpbox { border: 1.5px solid var(--gold); background: var(--gold-soft); border-radius: 10px; padding: 0.6rem 0.75rem; margin-bottom: 0.6rem; font-family: var(--display); }
+.xpbox .rk { font-weight: 800; color: var(--gold); font-size: 0.95rem; }
+.xpbox .n { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; display: flex; justify-content: space-between; gap: 0.5rem; }
+.bar { height: 6px; background: var(--ink-soft); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.bar i { display: block; height: 100%; background: var(--ink); border-radius: 3px; }
+.xpbox .bar { background: var(--paper); }
+.xpbox .bar i { background: var(--gold); }
+.engine { font-family: var(--display); font-size: 0.74rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem; }
+.engine i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--rule); flex: none; }
+.engine.ready i { background: var(--ok); } .engine.loading i { background: var(--gold); } .engine.fail i { background: var(--pen); }
+.nav-sec { font-family: var(--display); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 1.1rem 0 0.35rem; display: flex; justify-content: space-between; }
+.nav-sec em { font-style: normal; color: var(--pen); font-weight: 700; }
+.nav a { display: grid; grid-template-columns: 1.9rem 1fr auto; align-items: center; gap: 0.4rem; padding: 0.32rem 0.45rem; border-radius: 6px; color: var(--text); text-decoration: none; font-family: var(--display); font-size: 0.88rem; line-height: 1.25; }
+.nav a:hover { background: var(--ink-soft); }
+.nav a.on { background: var(--ink); color: var(--paper); }
+.nav a .n { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nav a.on .n { color: var(--paper); }
+.nav a .s { font-size: 0.72rem; font-variant-numeric: tabular-nums; color: var(--muted); }
+.nav a.on .s { color: var(--paper); opacity: 0.85; }
+.nav a .s.done { color: var(--ok); font-weight: 700; }
+.nav a.on .s.done { color: var(--paper); }
+
+.topbar { display: none; }
+main { min-width: 0; padding-block: 2rem 5rem; padding-inline: 2.5rem; }
+.col { max-width: 780px; margin: 0 auto; }
+
+/* Home */
+.hero { padding: 1rem 0 1.5rem; border-bottom: 2px solid var(--ink); margin-bottom: 1.5rem; }
+.hero .eyebrow, .unit-eyebrow { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.75rem; color: var(--muted); }
+.hero h1 { font-size: clamp(2.6rem, 8vw, 4.2rem); font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; margin: 0.4rem 0 0.8rem; }
+.hero h1 .py { font-family: var(--mono); font-weight: 600; font-size: 0.42em; letter-spacing: 0; vertical-align: 0.55em; color: var(--pen); }
+.chips { display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.8rem 0; }
+.chips span { font-family: var(--display); font-weight: 700; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 4px; padding: 0.05rem 0.5rem; font-size: 0.85rem; }
+.cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--ink); color: var(--paper); border: 0; padding: 0.7rem 1.2rem; border-radius: 8px; font-family: var(--display); font-weight: 600; text-decoration: none; font-size: 1rem; }
+.cta.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
+.method { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem 1.6rem; margin: 1rem 0; }
+.method h4 { margin-bottom: 0.25rem; }
+.method p { font-size: 0.93rem; color: var(--muted); }
+.parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.part-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.part-card .lvl { font-family: var(--display); color: var(--pen); font-weight: 700; font-size: 0.85rem; }
+.part-card p { font-size: 0.9rem; color: var(--muted); margin: 0; flex: 1; }
+.part-card a { font-family: var(--display); color: var(--ink-2); font-size: 0.9rem; }
+.ladder { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; margin: 0.8rem 0 0.4rem; }
+.ladder div { border-top: 4px solid var(--rule); padding-top: 0.4rem; font-family: var(--display); font-size: 0.82rem; line-height: 1.25; }
+.ladder div b { display: block; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.75rem; }
+.ladder div.got { border-color: var(--gold); }
+.ladder div.cur { color: var(--gold); font-weight: 700; }
+@media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } .ladder div { display: flex; gap: 0.6rem; border-top: 0; border-left: 4px solid var(--rule); padding: 0.1rem 0 0.1rem 0.6rem; } .ladder div.got { border-color: var(--gold); } }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 0.6rem 0 1.2rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th { text-align: left; font-family: var(--display); font-weight: 600; color: var(--ink); background: var(--ink-soft); padding: 0.45rem 0.65rem; white-space: nowrap; }
+td { padding: 0.4rem 0.65rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td.num { font-family: var(--display); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+td.c { font-family: var(--mono); font-size: 0.84rem; color: var(--ink); white-space: pre; }
+
+/* Unit */
+.unit-head { display: flex; gap: 1rem; align-items: center; padding-bottom: 1rem; border-bottom: 2px solid var(--ink); margin-bottom: 1.2rem; }
+.unit-num { font-family: var(--display); font-weight: 800; font-size: 2.4rem; color: var(--paper); background: var(--ink); min-width: 4.2rem; height: 4.2rem; display: flex; align-items: center; justify-content: center; border-radius: 8px; flex: none; }
+.unit-num.final { background: var(--pen); font-size: 1.6rem; }
+.missionline { font-style: italic; color: var(--muted); margin: 0.2rem 0 0; }
+.goals { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 0.8rem 1rem; margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+.goals > div { flex: 1 1 300px; min-width: 0; }
+.goals .lab { font-family: var(--display); font-weight: 700; color: var(--ink); text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.1em; }
+.goals ul { margin: 0.3rem 0 0; padding-left: 1.1rem; font-size: 0.95rem; }
+.goals .uxp { flex: 0 0 auto; font-family: var(--display); text-align: right; }
+.goals .uxp b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.goals .uxp span { font-size: 0.8rem; color: var(--muted); }
+.tabs { display: flex; gap: 0.3rem; border-bottom: 1px solid var(--rule); margin: 1.2rem 0 0.6rem; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 3; padding-top: 0.4rem; overflow-x: auto; }
+.tabs button { border: 0; background: none; padding: 0.55rem 0.8rem; font-family: var(--display); font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; white-space: nowrap; }
+.tabs button.on { color: var(--ink); border-bottom-color: var(--ink); }
+.lesson ul, .lesson ol { padding-left: 1.3rem; }
+.lesson li { margin-bottom: 0.3rem; }
+.tip { background: var(--pen-soft); border: 1px solid var(--pen); border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.8rem 0 1.1rem; }
+.tip.info { background: var(--ink-soft); border-color: var(--ink-2); }
+.tip-label { font-family: var(--display); font-weight: 700; color: var(--pen); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em; display: block; }
+.tip.info .tip-label { color: var(--ink); }
+.tip p { margin: 0; }
+pre.static, pre.shell, pre.sol { font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; background: var(--code-bg); color: var(--code-fg); border-radius: 8px; padding: 0.75rem 0.9rem; overflow-x: auto; margin: 0.5rem 0 1rem; }
+pre.shell { border-left: 4px solid var(--pen); }
+pre.shell::before { content: "Terminal du Mac"; display: block; font-family: var(--display); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--code-dim); margin-bottom: 0.25rem; }
+
+/* Code editor */
+.ide { margin: 0.6rem 0 1.2rem; border-radius: 10px; overflow: hidden; background: var(--code-bg); border: 1px solid var(--code-line); }
+.ed { position: relative; font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; }
+.ed pre, .ed textarea { margin: 0; padding: 0.75rem 0.9rem; font: inherit; line-height: inherit; tab-size: 4; white-space: pre; border: 0; letter-spacing: 0; }
+.ed pre { position: absolute; inset: 0; overflow: hidden; color: var(--code-fg); pointer-events: none; }
+.ed pre code { all: unset; display: block; white-space: pre; }
+.ed textarea { display: block; position: relative; width: 100%; resize: none; overflow-x: auto; overflow-y: hidden; background: transparent; color: transparent; caret-color: var(--code-fg); outline: none; min-height: 2.9rem; }
+.ed textarea::selection { background: rgba(140, 207, 255, 0.28); color: transparent; }
+.ed textarea:focus-visible { box-shadow: inset 0 0 0 2px var(--sx-fn); }
+.k { color: var(--sx-kw); } .s { color: var(--sx-str); } .m { color: var(--sx-num); } .c { color: var(--sx-com); font-style: italic; } .f { color: var(--sx-fn); } .sf { color: var(--sx-self); }
+.ide-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; padding: 0.45rem 0.6rem; border-top: 1px solid var(--code-line); background: var(--code-line); }
+.ide-bar button { border: 1px solid var(--code-dim); background: transparent; color: var(--code-fg); border-radius: 6px; padding: 0.22rem 0.7rem; font-family: var(--display); font-weight: 600; font-size: 0.84rem; }
+.ide-bar button:hover { border-color: var(--code-fg); }
+.ide-bar button.run { background: var(--sx-str); border-color: var(--sx-str); color: var(--code-bg); }
+.ide-bar button.chk { background: var(--sx-num); border-color: var(--sx-num); color: var(--code-bg); }
+.ide-bar button[disabled] { opacity: 0.55; cursor: progress; }
+.ide-bar .kbd { margin-left: auto; font-family: var(--display); font-size: 0.72rem; color: var(--code-dim); }
+.ins { padding: 0.5rem 0.75rem 0.6rem; border-top: 1px solid var(--code-line); }
+.ins label { display: block; font-family: var(--display); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--code-dim); margin-bottom: 0.2rem; }
+.ins textarea { width: 100%; min-height: 2.6rem; background: var(--code-bg); color: var(--sx-num); border: 1px dashed var(--code-dim); border-radius: 6px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; padding: 0.35rem 0.5rem; resize: vertical; }
+.console { border-top: 1px solid var(--code-line); background: #050c0d; padding: 0.6rem 0.9rem 0.7rem; }
+.console .lab { font-family: var(--display); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--code-dim); display: block; margin-bottom: 0.2rem; }
+.console pre { margin: 0; font-family: var(--mono); font-size: 0.83rem; line-height: 1.5; color: #dfe9e7; white-space: pre-wrap; word-break: break-word; max-height: 22rem; overflow: auto; }
+.console .err { margin-top: 0.4rem; border-left: 3px solid #ff8a7a; padding: 0.2rem 0 0.2rem 0.6rem; font-family: var(--display); font-size: 0.86rem; color: #ffb4a8; }
+.console .err b { color: #ff8a7a; }
+.console .err span { display: block; color: #e7cfc9; font-family: var(--body); font-size: 0.86rem; }
+.console .empty { color: var(--code-dim); font-style: italic; font-family: var(--body); font-size: 0.85rem; }
+.console .wait { color: var(--sx-num); font-family: var(--display); font-size: 0.85rem; }
+
+/* Glossary */
+.vocab-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0.4rem 0; font-family: var(--display); font-size: 0.85rem; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--text); padding: 0.25rem 0.7rem; font-size: 0.8rem; font-family: var(--display); }
+.seg button.on { background: var(--ink); color: var(--paper); }
+.gloss td.t { font-family: var(--mono); font-size: 0.86rem; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.gloss td.ex { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.gloss.hide-d td.d span, .gloss.hide-t td.t span { filter: blur(6px); cursor: pointer; transition: filter .15s; }
+.gloss td span.shown { filter: none !important; }
+
+/* Exercises */
+.exercise { background: var(--paper); border: 1px solid var(--rule); border-radius: 12px; padding: 1.1rem 1.2rem; margin: 1.1rem 0; }
+.exercise.boss { border: 2px solid var(--pen); background: linear-gradient(var(--pen-soft), var(--paper) 7rem); }
+.exercise h4 { margin-bottom: 0.7rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.5rem; }
+.ex-num { color: var(--pen); }
+.ex-tag { font-family: var(--display); font-size: 0.75rem; font-weight: 700; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: 0 0.5rem; white-space: nowrap; }
+.ex-tag.won { background: var(--gold); color: var(--paper); }
+.ex-tag.boss { color: var(--pen); border-color: var(--pen); }
+.items { margin: 0; padding-left: 1.5rem; }
+.items > li { margin-bottom: 0.9rem; }
+.items .q { display: block; margin-bottom: 0.3rem; }
+.fill-line { line-height: 2.3; font-family: var(--mono); font-size: 0.88rem; white-space: pre-wrap; }
+input.blank, input.line, textarea.line { font: inherit; color: var(--ink-2); background: transparent; border: 0; border-bottom: 1.5px solid var(--ink); padding: 0 0.2rem; border-radius: 0; }
+input.blank { width: 7em; text-align: center; margin: 0 0.15rem; font-family: var(--mono); }
+input.line, textarea.line { width: 100%; padding: 0.25rem 0.2rem; font-family: var(--mono); font-size: 0.9rem; }
+textarea.line { border: 1px solid var(--rule); border-radius: 6px; resize: vertical; min-height: 4.2rem; padding: 0.3rem 0.5rem; }
+input:focus, textarea.line:focus { outline: none; border-color: var(--ink-2); box-shadow: 0 2px 0 var(--ink-2); }
+.st-ok { border-color: var(--ok) !important; color: var(--ok) !important; background: var(--ok-soft) !important; }
+.st-bad { border-color: var(--pen) !important; color: var(--pen) !important; background: var(--pen-soft) !important; }
+.st-near { border-color: var(--near) !important; color: var(--near) !important; background: var(--near-soft) !important; }
+.opts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.opt { border: 1.5px solid var(--rule); background: var(--paper); color: var(--text); border-radius: 8px; padding: 0.3rem 0.75rem; text-align: left; font-size: 0.95rem; }
+.opt:hover { border-color: var(--ink-2); }
+.opt.sel { border-color: var(--ink); background: var(--ink-soft); color: var(--ink); font-weight: 600; }
+pre.mini { font-family: var(--mono); font-size: 0.84rem; line-height: 1.5; background: var(--code-bg); color: var(--code-fg); border-radius: 8px; padding: 0.5rem 0.75rem; margin: 0 0 0.4rem; overflow-x: auto; }
+.fb { font-family: var(--display); font-size: 0.86rem; margin-top: 0.3rem; white-space: pre-line; }
+.fb.ok { color: var(--ok); } .fb.bad { color: var(--pen); } .fb.near { color: var(--near); }
+.ex-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px dashed var(--rule); }
+.btn { border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 8px; padding: 0.4rem 0.95rem; font-family: var(--display); font-weight: 600; font-size: 0.9rem; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.score { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; margin-left: auto; }
+.score.good { color: var(--ok); } .score.mid { color: var(--near); } .score.low { color: var(--pen); }
+.consigne p:last-child { margin-bottom: 0.4rem; }
+.verdict { border-radius: 8px; padding: 0.6rem 0.9rem; margin-top: 0.6rem; font-family: var(--display); font-size: 0.92rem; }
+.verdict.ok { background: var(--ok-soft); color: var(--ok); border: 1px solid var(--ok); }
+.verdict.bad { background: var(--pen-soft); color: var(--pen); border: 1px solid var(--pen); }
+.verdict.info { background: var(--ink-soft); color: var(--ink); border: 1px solid var(--ink-2); }
+.verdict button { margin-top: 0.4rem; }
+.hint { background: var(--gold-soft); border: 1px dashed var(--gold); border-radius: 8px; padding: 0.55rem 0.85rem; margin-top: 0.6rem; font-size: 0.95rem; }
+.hint b, .model b { font-family: var(--display); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.hint b { color: var(--gold); }
+.model { margin-top: 0.6rem; }
+.model b { color: var(--ok); }
+.model .note { margin: 0.2rem 0 0.4rem; }
+.steps { list-style: none; padding: 0; margin: 0.4rem 0 0; }
+.steps li { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); }
+.steps input { width: 1.15rem; height: 1.15rem; margin-top: 0.3rem; accent-color: var(--ok); flex: none; }
+.steps label { flex: 1; min-width: 0; }
+.unit-score { background: var(--paper); border: 2px solid var(--ink); border-radius: 12px; padding: 1rem 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; justify-content: space-between; margin-top: 1.4rem; }
+.unit-score .big { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; }
+.pager { display: flex; justify-content: space-between; gap: 0.6rem; margin-top: 2rem; flex-wrap: wrap; }
+.plan-tbl input { width: 1.1rem; height: 1.1rem; accent-color: var(--ink); }
+.note { font-size: 0.85rem; color: var(--muted); }
+.cheat { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0.4rem 1.4rem; }
+.cheat > div { min-width: 0; }
+.cheat h3 { margin-top: 1.2rem; }
+
+#toast { position: fixed; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 0.6rem 1rem; border-radius: 8px; font-family: var(--display); font-size: 0.95rem; z-index: 30; max-width: 90vw; box-shadow: 0 6px 24px rgba(0,0,0,.2); }
+#toast.xp { background: var(--gold); color: #1d1300; font-weight: 700; }
+
+@media (max-width: 860px) {
+  body { font-size: 16px; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .side { position: fixed; inset: 0 auto 0 0; width: min(86vw, 320px); z-index: 20; transform: translateX(-100%); transition: transform .2s; padding-top: calc(1.2rem + env(safe-area-inset-top, 0px)); box-shadow: 0 0 40px rgba(0,0,0,.25); }
+  .side.open { transform: none; }
+  .scrim { position: fixed; inset: 0; background: rgba(5,14,16,.45); z-index: 19; }
+  .topbar { display: flex; align-items: center; gap: 0.6rem; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0.5rem 16px; }
+  .topbar button { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 8px; padding: 0.3rem 0.7rem; font-family: var(--display); font-weight: 600; }
+  .topbar b { font-family: var(--display); color: var(--ink); font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0; }
+  .topbar .tx { font-family: var(--display); font-weight: 700; color: var(--gold); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  main { padding-inline: 16px; padding-block: 1.2rem 4rem; }
+  .tabs { top: calc(env(safe-area-inset-top, 0px) + 2.9rem); }
+  .unit-num { min-width: 3.2rem; height: 3.2rem; font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  .exercise { padding: 0.9rem 0.8rem; }
+  .items { padding-left: 1.2rem; }
+  .ide-bar .kbd { display: none; }
+}
+
+.ed, pre.static, pre.sol, pre.mini, .console pre, td.c, code { font-variant-ligatures: none; }
+/* App iPhone : bande sous l'heure, cibles tactiles, pas de zoom à la saisie */
+body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 25; }
+.loading-app { font-family: var(--display); color: var(--muted); padding: 3rem 0; text-align: center; }
+@media (max-width: 860px) {
+  body { font-size: 17px; }
+  .topbar { min-height: 3.2rem; }
+  .topbar button { min-height: 44px; padding: 0.4rem 0.9rem; font-size: 1rem; }
+  .tabs { top: calc(env(safe-area-inset-top, 0px) + 3.2rem); }
+  .tabs button { min-height: 44px; padding: 0.6rem 0.9rem; font-size: 1rem; }
+  .nav a { min-height: 44px; font-size: 1rem; padding: 0.45rem 0.55rem; }
+  .side { padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px)); }
+  .ed { font-size: 16px; }
+  .ins textarea, input.blank, input.line, textarea.line { font-size: 16px; }
+  .fill-line { font-size: 16px; line-height: 2.5; }
+  .ide-bar { gap: 0.5rem; padding: 0.55rem 0.6rem; }
+  .ide-bar button { min-height: 44px; padding: 0.45rem 0.95rem; font-size: 0.95rem; }
+  .btn, .cta, .opt { min-height: 44px; }
+  .btn { padding: 0.55rem 1.1rem; font-size: 1rem; }
+  .opt { padding: 0.5rem 0.9rem; font-size: 1rem; }
+  .seg button { min-height: 40px; padding: 0.35rem 0.9rem; font-size: 0.9rem; }
+  .steps input, .plan-tbl input { width: 1.5rem; height: 1.5rem; }
+  .table-wrap { -webkit-overflow-scrolling: touch; margin-inline: -16px; padding-inline: 16px; }
+  .console pre { font-size: 0.9rem; }
+  pre.static, pre.shell, pre.sol, pre.mini { font-size: 0.9rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head><body>
+<div class="topbar"><button id="menu" type="button" aria-label="Ouvrir la carte du jeu">Carte</button><b id="tb-title">De zéro au code</b><span class="tx" id="tb-xp"></span></div>
+<div class="scrim" id="scrim" hidden></div>
+<div class="shell"><aside class="side" id="side" aria-label="Carte du jeu"></aside><main><div class="col" id="content"></div></main></div>
+<div id="toast" role="status" hidden></div>
+
+<script type="text/plain" id="harness">import sys, io, os, json, builtins, random, time, tempfile, traceback, re
+
+time.sleep = lambda *a, **k: None
+FN = "<ton code>"
+LIMIT = 1000000
+HOME = "/home/pyodide/aventure"
+os.makedirs(HOME, exist_ok=True)
+
+
+class _Boucle(BaseException):
+    pass
+
+
+class _PlusDeSaisie(BaseException):
+    pass
+
+
+class CodePlante(Exception):
+    pass
+
+
+AIDE = {
+    "SyntaxError": "Python ne comprend pas la phrase : parenthèse ou guillemet oublié, deux-points manquant après if/for/def, ou faute de frappe.",
+    "IndentationError": "Le décalage des lignes n'est pas bon. Après une ligne qui finit par « : », le bloc doit être décalé de 4 espaces, toujours le même.",
+    "TabError": "Mélange de tabulations et d'espaces. Utilise uniquement des espaces (4 par niveau).",
+    "NameError": "Ce nom n'existe pas (encore). Faute de frappe, majuscule en trop, variable créée plus bas, ou guillemets oubliés autour d'un texte ?",
+    "TypeError": "Tu mélanges des types qui ne vont pas ensemble, par exemple texte + nombre. Pense à int(), float() ou str(), ou vérifie le nombre d'arguments donnés à la fonction.",
+    "ValueError": "La valeur n'a pas la bonne forme, par exemple int(\"abc\") ou int(\"4.5\").",
+    "ZeroDivisionError": "Division par zéro : c'est impossible, il faut tester le cas avant de diviser.",
+    "IndexError": "Tu demandes une case qui n'existe pas. Une liste de 3 éléments a les indices 0, 1 et 2.",
+    "KeyError": "Cette clé n'existe pas dans le dictionnaire. Vérifie l'orthographe, ou utilise .get(cle, valeur_par_defaut).",
+    "AttributeError": "Cet objet n'a pas cet attribut ou cette méthode. Faute de frappe, ou mauvais type d'objet ?",
+    "FileNotFoundError": "Le fichier n'existe pas (encore). Crée-le d'abord, ou attrape l'erreur avec try / except FileNotFoundError.",
+    "UnboundLocalError": "Tu utilises une variable dans une fonction avant de lui avoir donné une valeur dans cette fonction.",
+    "RecursionError": "Ta fonction s'appelle elle-même sans fin.",
+    "ModuleNotFoundError": "Ce module n'est pas disponible ici. Dans le navigateur, seuls les modules intégrés à Python marchent (random, math, json, datetime…).",
+}
+
+
+def _ligne(e, tb):
+    if isinstance(e, SyntaxError) and getattr(e, "filename", None) == FN:
+        return e.lineno
+    n = None
+    for fr in traceback.extract_tb(tb):
+        if fr.filename == FN:
+            n = fr.lineno
+    return n
+
+
+def _explique(e, tb=None):
+    if isinstance(e, _Boucle):
+        return {"type": "Boucle infinie", "msg": "Ton programme tournait sans s'arrêter, il a été stoppé.", "aide": "Vérifie que la condition de ton while finit par devenir fausse, ou qu'un break est bien atteint.", "ligne": None}
+    if isinstance(e, _PlusDeSaisie):
+        return {"type": "Saisie manquante", "msg": "Ton programme attend une réponse (input), mais il n'y en a plus.", "aide": "Dans la case « Entrées », mets une ligne par réponse que le programme va demander.", "ligne": None}
+    name = type(e).__name__
+    if isinstance(e, SyntaxError):
+        msg = e.msg
+    else:
+        msg = str(e)
+    return {"type": name, "msg": msg, "aide": AIDE.get(name, ""), "ligne": _ligne(e, tb or e.__traceback__)}
+
+
+def _texte(err):
+    s = err["type"]
+    if err.get("ligne"):
+        s += f" (ligne {err['ligne']})"
+    s += " : " + err["msg"]
+    return s
+
+
+class _Env:
+    def __init__(self, inputs, rnd):
+        self.feed = [str(x) for x in inputs]
+        self.buf = io.StringIO()
+        self.rnd = rnd or {}
+        self.n = 0
+
+    def input(self, prompt=""):
+        self.buf.write(str(prompt))
+        if not self.feed:
+            raise _PlusDeSaisie()
+        v = self.feed.pop(0)
+        self.buf.write(v + "\n")
+        return v
+
+    def gtrace(self, frame, event, arg):
+        if frame.f_code.co_filename != FN:
+            return None
+        return self.ltrace
+
+    def ltrace(self, frame, event, arg):
+        if event == "line":
+            self.n += 1
+            if self.n > LIMIT:
+                raise _Boucle()
+        return self.ltrace
+
+    def __enter__(self):
+        self.trace = sys.gettrace()
+        self.saved = (sys.stdout, sys.stderr, builtins.input, random.randint, random.choice, random.shuffle)
+        sys.stdout = self.buf
+        sys.stderr = self.buf
+        builtins.input = self.input
+        if "randint" in self.rnd:
+            v = self.rnd["randint"]
+            random.randint = lambda a, b: v
+        if "choice" in self.rnd:
+            c = self.rnd["choice"]
+            random.choice = lambda seq: c
+        if self.rnd.get("shuffle") is False:
+            random.shuffle = lambda x, *a, **k: None
+        if "seed" in self.rnd:
+            random.seed(self.rnd["seed"])
+        sys.settrace(self.gtrace)
+        return self
+
+    def __exit__(self, *a):
+        sys.settrace(self.trace)
+        sys.stdout, sys.stderr, builtins.input, random.randint, random.choice, random.shuffle = self.saved
+        return False
+
+
+def _exec(code, inputs=(), name="__main__", rnd=None, g=None):
+    g = {"__name__": name, "__builtins__": builtins} if g is None else g
+    env = _Env(inputs, rnd)
+    err = None
+    try:
+        with env:
+            exec(compile(code, FN, "exec"), g)
+    except SystemExit:
+        pass
+    except BaseException as e:
+        err = _explique(e)
+    return env.buf.getvalue(), err, g
+
+
+def _ecrire(files, d):
+    for nom, contenu in (files or {}).items():
+        with open(os.path.join(d, nom), "w", encoding="utf-8") as f:
+            f.write(contenu)
+
+
+def lignes(s):
+    return [l.strip() for l in s.splitlines() if l.strip()]
+
+
+def norm(s):
+    return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def _sans_commentaires(code):
+    return "\n".join(l.split("#")[0] for l in code.splitlines())
+
+
+def _check(req):
+    code = req["code"]
+    files = req.get("files") or {}
+    name = req.get("name") or "__main__"
+    d = tempfile.mkdtemp()
+    os.chdir(d)
+    _ecrire(files, d)
+    out, err, g = _exec(code, req.get("inputs") or [], name=name, rnd=req.get("rnd"))
+    if err:
+        return {"ok": False, "out": out, "err": err, "msg": "Ton code plante quand on le lance. Corrige d'abord l'erreur ci-dessous."}
+
+    def run(inputs=(), rnd=None, name=name):
+        o, e, _ = _exec(code, inputs, name=name, rnd=rnd)
+        if e:
+            raise CodePlante(f"Avec les réponses {list(inputs)}, ton code plante : {_texte(e)}")
+        return o
+
+    def fresh():
+        nd = tempfile.mkdtemp()
+        os.chdir(nd)
+        _ecrire(files, nd)
+        return nd
+
+    def fonction(nom):
+        f = g.get(nom)
+        if f is None or not callable(f):
+            raise AssertionError(f"Je ne trouve pas « {nom} ». Vérifie le nom exact (minuscules, majuscules, tirets bas).")
+        return f
+
+    def call(fn, inputs=(), *args, **kw):
+        env = _Env(inputs, None)
+        with env:
+            r = fn(*args, **kw)
+        return r, env.buf.getvalue()
+
+    def appel(fn, *args, **kw):
+        env = _Env((), None)
+        with env:
+            r = fn(*args, **kw)
+        return r
+
+    ns = {"out": out, "g": g, "code": code, "code_sans_com": _sans_commentaires(code), "run": run, "fresh": fresh,
+          "fonction": fonction, "call": call, "appel": appel, "lignes": lignes, "norm": norm,
+          "json": json, "os": os, "re": re}
+    try:
+        with _Env((), None):
+            exec(compile(req["check"], "<test>", "exec"), ns)
+    except AssertionError as e:
+        return {"ok": False, "out": out, "msg": str(e) or "Un test ne passe pas encore."}
+    except CodePlante as e:
+        return {"ok": False, "out": out, "msg": str(e)}
+    except (_Boucle, _PlusDeSaisie) as e:
+        return {"ok": False, "out": out, "msg": "Pendant les tests : " + _texte(_explique(e))}
+    except Exception as e:
+        x = _explique(e)
+        return {"ok": False, "out": out, "msg": "Pendant les tests, ton code a provoqué une erreur : " + _texte(x)}
+    finally:
+        os.chdir(HOME)
+    return {"ok": True, "out": out}
+
+
+def _run(req):
+    os.chdir(HOME)
+    for nom, contenu in (req.get("files") or {}).items():
+        if not os.path.exists(nom):
+            _ecrire({nom: contenu}, HOME)
+    out, err, _ = _exec(req["code"], req.get("inputs") or [])
+    return {"out": out, "err": err}
+
+
+def _api(s):
+    req = json.loads(s)
+    try:
+        if req.get("mode") == "check":
+            res = _check(req)
+        else:
+            res = _run(req)
+    except BaseException as e:
+        res = {"ok": False, "out": "", "err": {"type": "Erreur interne", "msg": repr(e), "aide": "", "ligne": None}}
+    return json.dumps(res, ensure_ascii=False)
+</script>
+<script>(async () => {
+  document.getElementById('content').innerHTML = '<p class="loading-app">Chargement…</p>';
+  let D;
+  try { const r = await fetch('contenu.json', { cache: 'no-cache' }); if (!r.ok) throw new Error(r.status); D = await r.json(); }
+  catch (e) { document.getElementById('content').innerHTML = '<p class="loading-app">Le contenu n\'a pas pu se charger. Ouvre l\'app une première fois avec du réseau, puis elle marchera hors connexion.</p>'; return; }
+  const HARNESS = document.getElementById('harness').textContent;
+  const UNITS = [];
+  D.parts.forEach(p => p.units.forEach(u => { u.part = p; UNITS.push(u); }));
+  const L = 'abcdefgh';
+  const KEY = 'dzcode-v1';
+
+  // ---------- storage (best effort) ----------
+  let S = { ans: {}, scores: {}, xp: {}, code: {}, ins: {}, peek: {}, steps: {}, plan: {}, tab: 'lesson' };
+  try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+  let saveT;
+  function save() { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }, 250); }
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // ---------- syntax highlighting ----------
+  const KW = 'def|class|if|elif|else|for|while|in|not|and|or|return|import|from|as|with|try|except|finally|break|continue|pass|True|False|None|is|lambda|global|raise|assert|yield|del';
+  const BI = 'print|input|len|range|int|float|str|bool|list|dict|tuple|set|type|max|min|sum|sorted|enumerate|open|round|abs|super|isinstance|issubclass|zip|any|all|getattr|callable';
+  const RX = new RegExp('(#[^\\n]*)|([rbfRBF]{0,2}(?:"""[\\s\\S]*?(?:"""|$)|\'\'\'[\\s\\S]*?(?:\'\'\'|$)|"(?:\\\\.|[^"\\\\\\n])*"?|\'(?:\\\\.|[^\'\\\\\\n])*\'?))|\\b(\\d+(?:\\.\\d+)?)\\b|\\b(' + KW + ')\\b|\\b(' + BI + ')\\b(?=\\s*\\()|\\b(self)\\b|(\\b[A-Za-z_]\\w*\\b)(?=\\s*\\()', 'g');
+  function hl(code) {
+    let out = '', last = 0, m;
+    RX.lastIndex = 0;
+    while ((m = RX.exec(code))) {
+      if (m[0] === '') { RX.lastIndex++; continue; }
+      out += esc(code.slice(last, m.index));
+      const cls = m[1] ? 'c' : m[2] ? 's' : m[3] ? 'm' : m[4] ? 'k' : m[5] ? 'f' : m[6] ? 'sf' : 'f';
+      out += `<span class="${cls}">${esc(m[0])}</span>`;
+      last = m.index + m[0].length;
+    }
+    return out + esc(code.slice(last));
+  }
+
+  // ---------- Python engine ----------
+  let enginePromise = null, engineState = 'idle';
+  function setEngine(st) { engineState = st; const el = $('#engine'); if (el) { el.className = 'engine ' + st; el.lastChild.textContent = ENGINE_TXT[st]; } }
+  const ENGINE_TXT = { idle: 'Python se lance au premier clic sur Exécuter', loading: 'Python se charge…', ready: 'Python est prêt', fail: 'Python n\'a pas pu se charger ici' };
+  function loadScript(src) {
+    return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+  }
+  function engine() {
+    if (enginePromise) return enginePromise;
+    setEngine('loading');
+    enginePromise = (async () => {
+      const base = new URL('py/', location.href).href;
+      if (!window.loadPyodide) await loadScript(base + 'pyodide.js');
+      const b64 = await (await fetch(base + 'python_stdlib.b64.txt')).text();
+      const bin = Uint8Array.from(atob(b64.trim()), ch => ch.charCodeAt(0));
+      const stdLibURL = URL.createObjectURL(new Blob([bin], { type: 'application/zip' }));
+      const py = await window.loadPyodide({ indexURL: base, stdLibURL, stdout: () => {}, stderr: () => {} });
+      py.runPython(HARNESS);
+      const api = py.globals.get('_api');
+      setEngine('ready');
+      return req => JSON.parse(api(JSON.stringify(req)));
+    })();
+    enginePromise.catch(err => { console.error(err); setEngine('fail'); enginePromise = null; });
+    return enginePromise;
+  }
+  const tick = () => new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
+
+  // ---------- answer checking (items) ----------
+  function lev(a, b) {
+    const m = a.length, n = b.length; if (!m) return n; if (!n) return m;
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[n];
+  }
+  const normOut = s => String(s || '').replace(/\r/g, '').split('\n').map(l => l.trim().replace(/[ \t]+/g, ' ')).filter(Boolean).join('\n').replace(/[’‘]/g, "'");
+  function grade(given, answers) {
+    const g = normOut(given);
+    if (!g) return 'empty';
+    let best = 99;
+    for (const a of answers) {
+      const x = normOut(a);
+      if (g === x) return 'ok';
+      best = Math.min(best, lev(g, x) / Math.max(4, x.length));
+    }
+    return best <= 0.15 ? 'near' : 'bad';
+  }
+
+  // ---------- XP ----------
+  function exXp(e) { return e.type === 'mission' ? e.xp : e.boss ? 50 : e.stars * 10; }
+  function totalXp() { let t = 0; for (const k in S.xp) t += S.xp[k] || 0; return t; }
+  function unitXp(u) { let s = 0, t = 0; u.exercises.forEach((e, i) => { t += exXp(e); s += S.xp[u.num + '.' + i] || 0; }); return { s, t }; }
+  function rankOf(xp) { let r = D.ranks[0], next = null; for (const x of D.ranks) { if (xp >= x[0]) r = x; else { next = x; break; } } return { r, next }; }
+  function award(u, ei, amount) {
+    const k = u.num + '.' + ei;
+    const before = totalXp();
+    const prev = S.xp[k] || 0;
+    if (amount <= prev) return 0;
+    S.xp[k] = amount; save();
+    const after = totalXp();
+    const r0 = rankOf(before).r, r1 = rankOf(after).r;
+    if (r1 !== r0) flash(`+${amount - prev} XP · Nouveau rang : ${r1[1]} !`, true, 5000);
+    else flash(`+${amount - prev} XP`, true);
+    nav();
+    return amount - prev;
+  }
+  function flash(msg, xp, ms) {
+    const t = $('#toast');
+    t.textContent = msg; t.className = xp ? 'xp' : ''; t.hidden = false;
+    clearTimeout(flash.t); flash.t = setTimeout(() => { t.hidden = true; }, ms || 2800);
+  }
+
+  // ---------- navigation ----------
+  function nav() {
+    const xp = totalXp();
+    const { r, next } = rankOf(xp);
+    const pct = next ? (xp - r[0]) / (next[0] - r[0]) * 100 : 100;
+    let h = `<a class="brand" href="#accueil"><b>De zéro<br>au code</b><span>Manuel de Python interactif</span></a>`;
+    h += `<div class="xpbox"><div class="rk">${esc(r[1])}</div><div class="n"><span>${xp} XP</span><span>${next ? 'prochain rang : ' + next[0] : 'rang maximum'}</span></div><div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div></div>`;
+    h += `<div class="engine ${engineState}" id="engine"><i></i><span>${ENGINE_TXT[engineState]}</span></div>`;
+    h += `<div class="nav"><a href="#accueil" data-r="accueil"><span class="n">·</span><span>Accueil et règles du jeu</span></a><a href="#plan" data-r="plan"><span class="n">·</span><span>Plan sur 12 semaines</span></a>`;
+    for (const p of D.parts) {
+      h += `<div class="nav-sec"><span>Partie ${p.num} · ${esc(p.title)}</span><em>${esc(p.level)}</em></div>`;
+      for (const u of p.units) {
+        const sc = unitXp(u);
+        h += `<a href="#n${u.num}" data-r="n${u.num}"><span class="n">${u.num === 10 ? '★' : u.num}</span><span>${esc(u.title)}</span><span class="s${sc.s >= sc.t ? ' done' : ''}">${sc.s ? sc.s + '/' + sc.t : ''}</span></a>`;
+      }
+    }
+    h += `<div class="nav-sec"><span>Outils</span></div><a href="#bac" data-r="bac"><span class="n">›_</span><span>Bac à sable</span></a><a href="#aide" data-r="aide"><span class="n">A</span><span>Aide-mémoire et erreurs</span></a></div>`;
+    $('#side').innerHTML = h;
+    $('#tb-xp').textContent = xp + ' XP';
+    markNav();
+  }
+  function markNav() { const r = route(); $$('#side a[data-r]').forEach(a => a.classList.toggle('on', a.dataset.r === r)); }
+  function route() { return (location.hash || '#accueil').slice(1) || 'accueil'; }
+
+  // ---------- editor ----------
+  const EDS = {};
+  function editorHtml(key, cfg) {
+    // cfg: { code, inputs, files, ex: {u, ei} | null, label }
+    EDS[key] = cfg;
+    const code = S.code[key] != null ? S.code[key] : cfg.code;
+    const ins = S.ins[key] != null ? S.ins[key] : (cfg.inputs || []).join('\n');
+    const showIns = /input\s*\(/.test(code) || (cfg.inputs && cfg.inputs.length);
+    const ex = cfg.ex;
+    let bar = `<button type="button" class="run" data-run>▶ Exécuter</button>`;
+    if (ex) bar += `<button type="button" class="chk" data-check-code>Vérifier</button><button type="button" data-hint>Indice</button><button type="button" data-sol>Voir le corrigé</button>`;
+    bar += `<button type="button" data-ins-toggle>Entrées</button><button type="button" data-reset-code>Réinitialiser</button><span class="kbd">Ctrl + Entrée pour exécuter</span>`;
+    return `<div class="ide" data-ed="${esc(key)}">
+      <div class="ed"><pre aria-hidden="true"><code>${hl(code)}\n</code></pre><textarea class="src" id="ed-${esc(key)}" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" aria-label="Code Python modifiable">${esc(code)}</textarea></div>
+      <div class="ide-bar">${bar}</div>
+      <div class="ins" ${showIns ? '' : 'hidden'}><label for="in-${esc(key)}">Entrées : une réponse par ligne, dans l'ordre des input()</label><textarea class="ins-ta" id="in-${esc(key)}" spellcheck="false" rows="${Math.min(6, Math.max(2, ins.split('\n').length))}">${esc(ins)}</textarea></div>
+      <div class="console" hidden><span class="lab">Console</span><pre></pre><div class="extra"></div></div>
+    </div>`;
+  }
+  function sizeEditors(root = document) {
+    $$('.ed textarea', root).forEach(ta => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; });
+  }
+  function syncEditor(ta) {
+    const pre = ta.previousElementSibling;
+    pre.firstChild.innerHTML = hl(ta.value) + '\n';
+    ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px';
+    pre.firstChild.style.transform = `translateX(${-ta.scrollLeft}px)`;
+  }
+  function insertText(ta, txt) {
+    ta.focus();
+    let ok = false;
+    try { ok = document.execCommand('insertText', false, txt); } catch (e) {}
+    if (!ok) { ta.setRangeText(txt, ta.selectionStart, ta.selectionEnd, 'end'); ta.dispatchEvent(new Event('input', { bubbles: true })); }
+  }
+  function edKeydown(ev) {
+    const ta = ev.target;
+    if ((ev.ctrlKey || ev.metaKey) && ev.key === 'Enter') { ev.preventDefault(); runEditor(ta.closest('.ide')); return; }
+    if (ev.key === 'Tab' && !ev.altKey && !ev.ctrlKey && !ev.metaKey) {
+      const v = ta.value, s = ta.selectionStart;
+      const ls = v.lastIndexOf('\n', s - 1) + 1;
+      if (ev.shiftKey) {
+        const m = /^ {1,4}/.exec(v.slice(ls));
+        if (m) { ev.preventDefault(); ta.setSelectionRange(ls, ls + m[0].length); insertText(ta, ''); }
+        return;
+      }
+      if (ta.selectionStart !== ta.selectionEnd) return;
+      ev.preventDefault(); insertText(ta, '    '); return;
+    }
+    if (ev.key === 'Enter' && !ev.shiftKey) {
+      const v = ta.value, s = ta.selectionStart;
+      const ls = v.lastIndexOf('\n', s - 1) + 1;
+      const line = v.slice(ls, s);
+      let ind = (/^ */.exec(line) || [''])[0];
+      if (/:\s*(#.*)?$/.test(line)) ind += '    ';
+      ev.preventDefault(); insertText(ta, '\n' + ind);
+    }
+  }
+
+  function consoleRender(box, res, extraHtml) {
+    const c = $('.console', box);
+    c.hidden = false;
+    const pre = $('pre', c);
+    const out = res.out || '';
+    pre.innerHTML = out ? esc(out.replace(/\n$/, '')) : (res.err ? '' : '<span class="empty">Le programme n\'a rien affiché.</span>');
+    let ex = '';
+    if (res.err) {
+      const e = res.err;
+      ex += `<div class="err"><b>${esc(e.type)}${e.ligne ? ' · ligne ' + e.ligne : ''}</b> : ${esc(e.msg)}${e.aide ? `<span>${esc(e.aide)}</span>` : ''}</div>`;
+    }
+    $('.extra', c).innerHTML = ex + (extraHtml || '');
+  }
+  function busy(box, on) { $$('.ide-bar button', box).forEach(b => { b.disabled = on; }); }
+  async function call(box, req) {
+    const c = $('.console', box); c.hidden = false;
+    if (engineState !== 'ready') { $('pre', c).innerHTML = '<span class="wait">Chargement de Python dans ton navigateur… (la première fois seulement, quelques secondes)</span>'; $('.extra', c).innerHTML = ''; }
+    else { $('pre', c).innerHTML = '<span class="wait">Exécution…</span>'; $('.extra', c).innerHTML = ''; }
+    busy(box, true);
+    try {
+      const api = await engine();
+      await tick();
+      return api(req);
+    } catch (e) {
+      return { failed: true };
+    } finally { busy(box, false); }
+  }
+  function failHtml(withSelf) {
+    return `<div class="err"><b>Python n'a pas pu démarrer dans cette page.</b><span>Copie le code dans VS Code sur ton Mac pour le lancer (voir le niveau 1).${withSelf ? ' Si ton programme y fait bien ce qui est demandé, tu peux valider l\'exercice toi-même.' : ''}</span></div>` + (withSelf ? `<button type="button" class="btn ghost" data-self style="margin-top:.5rem">J'ai réussi dans VS Code</button>` : '');
+  }
+  function edState(box) {
+    const key = box.dataset.ed;
+    return { key, cfg: EDS[key], code: $('.src', box).value, inputs: $('.ins-ta', box).value.split('\n').filter((l, i, a) => !(i === a.length - 1 && l === '')) };
+  }
+  async function runEditor(box) {
+    const { cfg, code, inputs } = edState(box);
+    const res = await call(box, { mode: 'run', code, inputs, files: cfg.files || null });
+    if (res.failed) { consoleRender(box, { out: '' }, failHtml(!!cfg.ex)); return; }
+    consoleRender(box, res);
+  }
+  async function checkEditor(box) {
+    const { cfg, code, inputs } = edState(box);
+    const u = UNITS.find(x => x.num === cfg.ex.u), ei = cfg.ex.ei, e = u.exercises[ei];
+    const res = await call(box, { mode: 'check', code, check: e.check, inputs: e.inputs, files: e.files || null, name: e.name || null, rnd: e.rnd || null });
+    if (res.failed) { consoleRender(box, { out: '' }, failHtml(true)); return; }
+    let v;
+    if (res.ok) {
+      const full = exXp(e), k = u.num + '.' + ei;
+      const amount = S.peek[k] && !S.xp[k] ? Math.round(full / 2) : full;
+      const got = award(u, ei, amount);
+      v = `<div class="verdict ok">✓ Tous les tests passent !${got ? ` +${got} XP` : S.xp[k] ? ' (XP déjà gagnés)' : ''}${S.peek[k] && amount < full ? ' · moitié des XP car le corrigé a été ouvert avant' : ''}</div>`;
+      refreshTags(u);
+    } else {
+      v = `<div class="verdict bad">Pas encore : ${esc(res.msg || 'un test ne passe pas.')}</div>`;
+    }
+    consoleRender(box, res, v);
+  }
+
+  // ---------- pages ----------
+  function home() {
+    const next = UNITS.find(u => unitXp(u).s < unitXp(u).t) || UNITS[0];
+    const xp = totalXp();
+    const started = xp > 0;
+    let h = `<section class="hero"><div class="eyebrow">Manuel de Python pour francophones</div><h1>De zéro au code <span class="py">.py</span></h1>
+      <p>Toutes les bases de la programmation en Python, du tout premier <code>print</code> jusqu'au niveau intermédiaire. ${UNITS.length - 1} niveaux et un boss final, ${D.stats.ex} exercices qui se corrigent tout seuls, ${D.stats.boss} boss, et chaque bout de code s'exécute directement dans cette page. Comme un jeu vidéo, mais c'est toi qui montes en niveau.</p>
+      <div class="chips">${D.ranks.map(r => `<span>${esc(r[1])}</span>`).join('')}</div>
+      <div class="row"><a class="cta" href="#n${next.num}">${started ? 'Continuer : niveau ' + next.num : 'Commencer le niveau 1'}</a><a class="cta ghost" href="#plan">Voir le plan sur 12 semaines</a></div></section>`;
+    h += `<h3>Essaie tout de suite</h3><p>Change le prénom ou le nombre de niveaux, puis clique sur Exécuter.</p>`;
+    h += editorHtml('home', { code: D.demo, inputs: [] });
+    h += `<h3>Les rangs</h3><p>Chaque exercice réussi rapporte des XP : 10 XP par étoile (★ facile, ★★ moyen, ★★★ difficile), 50 XP par boss, 100 XP pour le donjon final. Tu en as <strong>${xp}</strong> sur ${D.stats.xp} possibles.</p>`;
+    const { r } = rankOf(xp);
+    h += `<div class="ladder">${D.ranks.map(x => `<div class="${xp >= x[0] ? 'got' : ''}${x === r ? ' cur' : ''}"><b>${x[0]} XP</b>${esc(x[1])}</div>`).join('')}</div>`;
+    h += `<h3>Les règles du jeu</h3><div class="method">${D.method.map(([t, d]) => `<div><h4>${esc(t)}</h4><p>${esc(d)}</p></div>`).join('')}</div>`;
+    h += `<p class="note">Ton code, tes réponses et tes XP sont gardés sur cet appareil uniquement. Ils ne passent pas d'un appareil à l'autre, et ils disparaissent si tu supprimes l'app de l'écran d'accueil. Le PDF « Apprendre à coder en s'amusant » (Volume 2) suit le même parcours, niveau par niveau.</p>`;
+    h += `<h3>Les trois parties</h3><div class="parts">${D.parts.map(p => `<div class="part-card"><div class="lvl">${esc(p.level)}</div><h4>Partie ${p.num} · ${esc(p.title)}</h4><p>${esc(p.intro)}</p><a href="#n${p.units[0].num}">Niveau ${p.units[0].num} : ${esc(p.units[0].title)}</a></div>`).join('')}</div>`;
+    return h;
+  }
+
+  function planPage() {
+    let h = `<h2>Plan sur 12 semaines</h2><p>Compte 30 à 45 minutes par jour, cinq ou six jours par semaine. Coche chaque semaine terminée. Si tu prends du retard, décale, mais ne saute pas de niveau : chacun s'appuie sur le précédent.</p>`;
+    h += `<div class="table-wrap"><table class="plan-tbl"><thead><tr><th>Fait</th><th>Sem.</th><th>Niveau</th><th>Contenu</th><th>En plus, sur ton Mac</th></tr></thead><tbody>`;
+    for (const [w, un, c, x] of D.plan) h += `<tr><td><input type="checkbox" id="plan-${w}" data-plan="${w}" ${S.plan[w] ? 'checked' : ''} aria-label="Semaine ${w} faite"></td><td class="num">${w}</td><td>${esc(un)}</td><td>${esc(c)}</td><td>${esc(x)}</td></tr>`;
+    h += `</tbody></table></div>`;
+    h += `<h3>Une séance type</h3><ul><li>10 minutes : lire la leçon en exécutant et en cassant chaque exemple.</li><li>5 minutes : réviser les mots-clés en mode « cacher ».</li><li>15 à 25 minutes : un ou deux exercices, sans regarder l'indice trop vite.</li><li>Le week-end : le boss du niveau, puis le refaire dans un vrai fichier .py sur ton Mac.</li></ul>`;
+    return h;
+  }
+
+  function aidePage() {
+    let h = `<h2>Aide-mémoire</h2><p>Tout l'essentiel des niveaux 1 à 9 sur une page. Garde-la ouverte à côté de ton éditeur.</p><div class="cheat">`;
+    for (const [t, rows] of D.cheat) {
+      h += `<div><h3>${esc(t)}</h3><div class="table-wrap"><table><tbody>${rows.map(([c, d]) => `<tr><td class="c">${hl(c)}</td><td>${esc(d)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    }
+    h += `</div><h2 style="margin-top:2rem">Les erreurs les plus fréquentes</h2><p>Lis toujours la dernière ligne du message d'erreur en premier : elle donne le type d'erreur. Puis cherche le numéro de ligne.</p>`;
+    h += `<div class="table-wrap"><table><thead><tr><th>Erreur</th><th>Ce qui se passe</th><th>Comment réparer</th></tr></thead><tbody>${D.errors.map(([a, b, c]) => `<tr><td class="c">${esc(a)}</td><td>${esc(b)}</td><td>${esc(c)}</td></tr>`).join('')}</tbody></table></div>`;
+    return h;
+  }
+
+  function bacPage() {
+    let h = `<h2>Bac à sable</h2><p>Un espace libre pour tester tes idées. Les fichiers que ton code crée ici restent disponibles tant que la page est ouverte. Pour les <code>input()</code>, mets les réponses dans la case Entrées.</p>`;
+    h += editorHtml('bac', { code: D.sandbox, inputs: ['gus'] });
+    h += `<p class="note">Seuls les modules livrés avec Python marchent ici (random, math, json, datetime, os…). Les bibliothèques à installer avec pip, comme requests ou pygame, se testent sur ton Mac.</p>`;
+    return h;
+  }
+
+  function unitPage(u) {
+    const idx = UNITS.indexOf(u);
+    const ux = unitXp(u);
+    let h = `<header class="unit-head"><span class="unit-num${u.num === 10 ? ' final' : ''}">${u.num === 10 ? 'Boss' : u.num}</span><div><div class="unit-eyebrow">Partie ${u.part.num} · ${esc(u.part.title)} · ${esc(u.part.level)}</div><h2>${esc(u.title)}</h2><p class="missionline">Mission : ${esc(u.mission)}</p></div></header>`;
+    h += `<div class="goals"><div><span class="lab">Objectifs</span><ul>${u.goals.map(g => `<li>${g}</li>`).join('')}</ul></div><div class="uxp" id="uxp"><b>${ux.s} / ${ux.t}</b><span>XP du niveau</span></div></div>`;
+    const tab = S.tab || 'lesson';
+    h += `<div class="tabs" role="tablist"><button type="button" role="tab" data-tab="lesson" class="${tab === 'lesson' ? 'on' : ''}">Leçon</button><button type="button" role="tab" data-tab="vocab" class="${tab === 'vocab' ? 'on' : ''}">Mots-clés · ${u.glossary.length}</button><button type="button" role="tab" data-tab="ex" class="${tab === 'ex' ? 'on' : ''}">Exercices · ${u.exercises.length}</button></div>`;
+    h += `<section data-pane="lesson" class="lesson" ${tab === 'lesson' ? '' : 'hidden'}>${lessonHtml(u)}<div class="row"><button class="btn" type="button" data-goto="vocab">Réviser les mots-clés</button><button class="btn ghost" type="button" data-goto="ex">Passer aux exercices</button></div></section>`;
+    h += `<section data-pane="vocab" ${tab === 'vocab' ? '' : 'hidden'}><div class="vocab-tools"><span>S'interroger :</span><span class="seg"><button type="button" data-vhide="" class="on">Tout voir</button><button type="button" data-vhide="hide-d">Cacher le sens</button><button type="button" data-vhide="hide-t">Cacher le mot-clé</button></span></div>
+      <div class="table-wrap"><table class="gloss" id="gloss"><thead><tr><th>Mot-clé</th><th>Ce que ça veut dire</th><th>Exemple</th></tr></thead><tbody>${u.glossary.map(([t, d, x]) => `<tr><td class="t"><span>${esc(t)}</span></td><td class="d"><span>${esc(d)}</span></td><td class="ex">${hl(x)}</td></tr>`).join('')}</tbody></table></div>
+      <div class="row"><button class="btn" type="button" data-goto="ex">Passer aux exercices</button></div></section>`;
+    h += `<section data-pane="ex" ${tab === 'ex' ? '' : 'hidden'}>${u.exercises.map((e, i) => exHtml(u, e, i)).join('')}<div class="unit-score" id="unit-score"></div></section>`;
+    h += `<nav class="pager">${idx > 0 ? `<a class="cta ghost" href="#n${UNITS[idx - 1].num}">← Niveau ${UNITS[idx - 1].num}</a>` : '<span></span>'}${idx < UNITS.length - 1 ? `<a class="cta" href="#n${UNITS[idx + 1].num}">${UNITS[idx + 1].num === 10 ? 'Boss final' : 'Niveau ' + UNITS[idx + 1].num} →</a>` : `<a class="cta" href="#aide">Aide-mémoire</a>`}</nav>`;
+    return h;
+  }
+
+  function lessonHtml(u) {
+    let n = 0;
+    return u.lesson.replace(/<pre class="runnable"( data-in="([^"]*)")?>([\s\S]*?)<\/pre>/g, (all, _a, din, body) => {
+      const code = body.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
+      const inputs = din ? JSON.parse(din.replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&')) : [];
+      return editorHtml(`l${u.num}-${n++}`, { code, inputs });
+    }).replace(/<pre class="static">([\s\S]*?)<\/pre>/g, (all, body) => {
+      const code = body.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
+      return `<pre class="static">${hl(code)}</pre>`;
+    });
+  }
+
+  function tagHtml(u, e, i) {
+    const k = u.num + '.' + i, got = S.xp[k] || 0, full = exXp(e);
+    const stars = e.type === 'mission' || e.boss ? '' : '★'.repeat(e.stars) + ' · ';
+    return `<span class="ex-tag${e.boss ? ' boss' : ''}${got ? ' won' : ''}" data-tag="${i}">${got ? '✓ ' + got + ' XP' : stars + full + ' XP'}</span>`;
+  }
+  function refreshTags(u) {
+    u.exercises.forEach((e, i) => { const t = $(`[data-tag="${i}"]`); if (t) t.outerHTML = tagHtml(u, e, i); });
+    const ux = unitXp(u); const b = $('#uxp b'); if (b) b.textContent = `${ux.s} / ${ux.t}`;
+    renderUnitScore(u);
+  }
+
+  function fid(u, e, i, b) { return `a-${u.num}-${e}-${i}-${b}`; }
+  function val(id) { return S.ans[id] == null ? '' : S.ans[id]; }
+
+  function exHtml(u, e, ei) {
+    const id = u.num === 10 ? `B.${ei + 1}` : `${u.num}.${ei + 1}`;
+    const label = e.boss ? (e.type === 'mission' && u.num === 10 ? 'Boss final' : 'Boss du niveau ' + u.num) : 'Exercice ' + id;
+    let h = `<div class="exercise${e.boss ? ' boss' : ''}" data-ex="${ei}"><h4><span class="ex-num">${label}</span> ${e.title} ${tagHtml(u, e, ei)}</h4>`;
+    if (e.type === 'code') {
+      h += `<div class="consigne">${e.consigne}</div>`;
+      h += editorHtml(`x${u.num}-${ei}`, { code: e.starter, inputs: e.inputs, files: e.files, ex: { u: u.num, ei } });
+      h += `<div class="hint" hidden><b>Indice</b>${e.indice}</div>`;
+      h += `<div class="model" hidden><b>Un corrigé possible</b><p class="note">Il existe toujours plusieurs bonnes solutions. Si la tienne passe les tests, elle est bonne.</p><pre class="sol">${hl(e.solution)}</pre><button type="button" class="btn ghost" data-copy-sol>Mettre ce corrigé dans l'éditeur</button></div>`;
+      return h + '</div>';
+    }
+    if (e.type === 'mission') {
+      h += `<div class="consigne">${e.consigne}</div><ul class="steps">${e.steps.map((s, si) => { const k = `m-${u.num}-${ei}-${si}`; return `<li><input type="checkbox" id="${k}" data-step="${k}" ${S.steps[k] ? 'checked' : ''}><label for="${k}">${s}</label></li>`; }).join('')}</ul>`;
+      return h + '</div>';
+    }
+    h += '<ol class="items">';
+    e.items.forEach((it, ii) => {
+      h += `<li data-i="${ii}">`;
+      if (it.kind === 'fill') {
+        h += '<span class="fill-line">' + it.segs.map((s, si) => {
+          if (!s.a) return esc(s.t);
+          const k = fid(u, ei, ii, si);
+          const w = Math.max(3, Math.min(12, Math.max(...s.a.map(a => a.length)) * 0.7 + 1.6));
+          return `<input class="blank" id="${k}" data-k="${k}" style="width:${w}em" value="${esc(val(k))}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Réponse">`;
+        }).join('') + '</span>';
+      } else if (it.kind === 'qcm') {
+        const k = fid(u, ei, ii, 0);
+        const sel = val(k);
+        h += `<span class="q">${it.q}</span><span class="opts" data-k="${k}">${it.options.map((o, oi) => `<button type="button" class="opt${String(sel) === String(oi) ? ' sel' : ''}" data-o="${oi}">${L[oi]}) ${o}</button>`).join('')}</span>`;
+      } else if (it.kind === 'out') {
+        const k = fid(u, ei, ii, 0);
+        const multi = it.a[0].includes('\n');
+        h += `<pre class="mini">${hl(it.code)}</pre>`;
+        h += multi ? `<textarea class="line" id="${k}" data-k="${k}" rows="${it.a[0].split('\n').length}" spellcheck="false" aria-label="Ce que le programme affiche (une ligne par ligne)" placeholder="Une ligne par ligne affichée">${esc(val(k))}</textarea>`
+          : `<input class="line" id="${k}" data-k="${k}" value="${esc(val(k))}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ce que le programme affiche" placeholder="Ce qui s'affiche">`;
+      }
+      h += '<div class="fb" hidden></div></li>';
+    });
+    h += `</ol><div class="ex-actions"><button class="btn" type="button" data-check>Vérifier</button><button class="btn ghost" type="button" data-show>Afficher les réponses</button><button class="btn ghost" type="button" data-reset>Recommencer</button><span class="score"></span></div></div>`;
+    return h;
+  }
+
+  function checkItems(u, ei, reveal) {
+    const e = u.exercises[ei];
+    const box = $(`.exercise[data-ex="${ei}"]`);
+    let s = 0, t = 0;
+    e.items.forEach((it, ii) => {
+      const li = $(`li[data-i="${ii}"]`, box);
+      const fb = $('.fb', li);
+      fb.hidden = true; fb.className = 'fb'; fb.textContent = '';
+      if (it.kind === 'fill') {
+        let allOk = true; const exp = [];
+        it.segs.forEach((sg, si) => {
+          if (!sg.a) return;
+          const inp = $('#' + fid(u, ei, ii, si));
+          if (reveal && grade(inp.value, sg.a) !== 'ok') { inp.value = sg.a[0]; S.ans[inp.dataset.k] = inp.value; }
+          const g = grade(inp.value, sg.a);
+          inp.classList.remove('st-ok', 'st-bad', 'st-near');
+          inp.classList.add(g === 'ok' ? 'st-ok' : g === 'near' ? 'st-near' : 'st-bad');
+          if (g !== 'ok') { allOk = false; exp.push(sg.a.join(' ou ')); }
+        });
+        t++; if (allOk) s++;
+        else { fb.hidden = false; fb.classList.add('bad'); fb.textContent = 'Réponse : ' + exp.join(' · '); }
+      } else if (it.kind === 'qcm') {
+        const wrap = $('.opts', li); const k = wrap.dataset.k;
+        if (reveal) S.ans[k] = String(it.answer);
+        const sel = S.ans[k];
+        $$('.opt', wrap).forEach((b, oi) => {
+          b.classList.remove('st-ok', 'st-bad', 'sel');
+          if (String(oi) === String(sel)) b.classList.add('sel', oi === it.answer ? 'st-ok' : 'st-bad');
+          else if (sel != null && oi === it.answer) b.classList.add('st-ok');
+        });
+        t++; if (String(sel) === String(it.answer)) s++;
+        else { fb.hidden = false; fb.classList.add('bad'); fb.innerHTML = (sel == null ? 'Pas de réponse. ' : '') + 'Bonne réponse : ' + L[it.answer] + ') ' + it.options[it.answer]; }
+      } else {
+        const inp = $('#' + fid(u, ei, ii, 0));
+        let g = grade(inp.value, it.a);
+        if (reveal && g !== 'ok') { inp.value = it.a[0]; S.ans[inp.dataset.k] = inp.value; g = 'ok'; }
+        inp.classList.remove('st-ok', 'st-bad', 'st-near');
+        inp.classList.add(g === 'ok' ? 'st-ok' : g === 'near' ? 'st-near' : 'st-bad');
+        t++;
+        if (g === 'ok') s++;
+        else {
+          fb.hidden = false; fb.classList.add(g === 'near' ? 'near' : 'bad');
+          const lead = g === 'empty' ? 'Pas de réponse. ' : g === 'near' ? 'Presque : regarde les espaces, les guillemets, les crochets et les majuscules. ' : '';
+          fb.textContent = lead + 'Le programme affiche :\n' + it.a[0];
+        }
+      }
+    });
+    const sc = $('.score', box);
+    sc.textContent = `${s} / ${t}`;
+    const r = s / t; sc.className = 'score ' + (r >= 0.8 ? 'good' : r >= 0.5 ? 'mid' : 'low');
+    if (!reveal) {
+      S.scores[u.num] = S.scores[u.num] || {}; S.scores[u.num][ei] = { s, t };
+      if (r >= 0.8) { award(u, ei, exXp(e)); refreshTags(u); }
+    }
+    save(); renderUnitScore(u);
+  }
+
+  function renderUnitScore(u) {
+    const el = $('#unit-score'); if (!el) return;
+    const ux = unitXp(u);
+    const won = u.exercises.filter((e, i) => S.xp[u.num + '.' + i]).length;
+    if (!ux.s) { el.innerHTML = `<span>Réussis les exercices pour gagner des XP. Pour les questions, il faut au moins 80 % de bonnes réponses ; pour le code, tous les tests doivent passer.</span>`; return; }
+    const msg = ux.s >= ux.t ? (u.num === 10 ? 'Tu as fini le jeu. Bravo, développeur !' : 'Niveau terminé ! Le boss est vaincu, passe au niveau suivant.') : `${won} exercice${won > 1 ? 's' : ''} réussi${won > 1 ? 's' : ''} sur ${u.exercises.length}. Continue, le boss t'attend en bas de la page.`;
+    el.innerHTML = `<div><div class="big">${ux.s} / ${ux.t} XP</div><div class="note">sur ce niveau</div></div><div style="flex:1;min-width:200px">${msg}</div>`;
+  }
+
+  function render() {
+    const r = route();
+    const main = $('#content');
+    let title = 'De zéro au code';
+    for (const k in EDS) delete EDS[k];
+    if (r === 'plan') main.innerHTML = planPage(), title = 'Plan sur 12 semaines';
+    else if (r === 'aide') main.innerHTML = aidePage(), title = 'Aide-mémoire';
+    else if (r === 'bac') main.innerHTML = bacPage(), title = 'Bac à sable';
+    else if (/^n\d+$/.test(r) && UNITS.find(u => 'n' + u.num === r)) {
+      const u = UNITS.find(x => 'n' + x.num === r);
+      main.innerHTML = unitPage(u); title = u.num === 10 ? 'Boss final' : `Niveau ${u.num} · ${u.title}`;
+      renderUnitScore(u);
+      u.exercises.forEach((e, ei) => { if (e.type === 'items' && S.scores[u.num] && S.scores[u.num][ei]) checkItems(u, ei, false); });
+    } else main.innerHTML = home();
+    $('#tb-title').textContent = title;
+    markNav();
+    closeSide();
+    sizeEditors();
+    window.scrollTo(0, 0);
+  }
+  function currentUnit() { const r = route(); return UNITS.find(u => 'n' + u.num === r); }
+
+  // ---------- events ----------
+  document.addEventListener('click', ev => {
+    const t = ev.target.closest('button, a, span');
+    if (!t) return;
+    const ide = t.closest('.ide');
+    if (ide) {
+      if (t.matches('[data-run]')) { runEditor(ide); return; }
+      if (t.matches('[data-check-code]')) { checkEditor(ide); return; }
+      if (t.matches('[data-ins-toggle]')) { const b = $('.ins', ide); b.hidden = !b.hidden; if (!b.hidden) $('.ins-ta', ide).focus(); return; }
+      if (t.matches('[data-reset-code]')) {
+        const key = ide.dataset.ed, cfg = EDS[key];
+        delete S.code[key]; delete S.ins[key]; save();
+        const ta = $('.src', ide); ta.value = cfg.code; syncEditor(ta);
+        $('.ins-ta', ide).value = (cfg.inputs || []).join('\n');
+        $('.console', ide).hidden = true;
+        return;
+      }
+      if (t.matches('[data-self]')) {
+        const cfg = EDS[ide.dataset.ed];
+        if (cfg && cfg.ex) { const u = UNITS.find(x => x.num === cfg.ex.u); award(u, cfg.ex.ei, exXp(u.exercises[cfg.ex.ei])); refreshTags(u); }
+        return;
+      }
+      const exBox = ide.closest('.exercise');
+      if (exBox && t.matches('[data-hint]')) { const h = $('.hint', exBox); h.hidden = !h.hidden; return; }
+      if (exBox && t.matches('[data-sol]')) {
+        const m = $('.model', exBox); m.hidden = !m.hidden;
+        const cfg = EDS[ide.dataset.ed]; const k = cfg.ex.u + '.' + cfg.ex.ei;
+        if (!m.hidden && !S.xp[k]) { S.peek[k] = 1; save(); }
+        t.textContent = m.hidden ? 'Voir le corrigé' : 'Cacher le corrigé';
+        return;
+      }
+    }
+    if (t.matches('[data-copy-sol]')) {
+      const exBox = t.closest('.exercise'); const u = currentUnit(); const e = u.exercises[+exBox.dataset.ex];
+      const ta = $('.src', exBox); ta.value = e.solution; S.code[$('.ide', exBox).dataset.ed] = e.solution; save(); syncEditor(ta);
+      ta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    if (t.matches('[data-tab]') || t.matches('[data-goto]')) {
+      const tab = t.dataset.tab || t.dataset.goto; S.tab = tab; save();
+      $$('[data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+      $$('[data-pane]').forEach(p => { p.hidden = p.dataset.pane !== tab; });
+      sizeEditors();
+      if (t.dataset.goto) $('.tabs').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (t.matches('[data-vhide]')) { const tb = $('#gloss'); tb.classList.remove('hide-d', 'hide-t'); if (t.dataset.vhide) tb.classList.add(t.dataset.vhide); $$('#gloss span.shown').forEach(s => s.classList.remove('shown')); $$('[data-vhide]').forEach(b => b.classList.toggle('on', b === t)); return; }
+    if (t.tagName === 'SPAN' && t.closest('#gloss td.t, #gloss td.d')) { t.classList.add('shown'); return; }
+    const exBox = t.closest('.exercise');
+    const u = currentUnit();
+    if (exBox && u) {
+      const ei = +exBox.dataset.ex;
+      if (t.matches('.opt')) {
+        const wrap = t.closest('.opts'); S.ans[wrap.dataset.k] = t.dataset.o; save();
+        $$('.opt', wrap).forEach(b => { b.classList.remove('st-ok', 'st-bad'); b.classList.toggle('sel', b === t); });
+        return;
+      }
+      if (t.matches('[data-check]')) { checkItems(u, ei, false); return; }
+      if (t.matches('[data-show]')) { checkItems(u, ei, true); return; }
+      if (t.matches('[data-reset]')) {
+        Object.keys(S.ans).forEach(k => { if (k.startsWith(`a-${u.num}-${ei}-`)) delete S.ans[k]; });
+        if (S.scores[u.num]) delete S.scores[u.num][ei];
+        save();
+        exBox.outerHTML = exHtml(u, u.exercises[ei], ei);
+        renderUnitScore(u);
+        return;
+      }
+    }
+  });
+  document.addEventListener('input', ev => {
+    const el = ev.target;
+    if (el.matches('.ed textarea')) { syncEditor(el); S.code[el.closest('.ide').dataset.ed] = el.value; save(); return; }
+    if (el.matches('.ins-ta')) { S.ins[el.closest('.ide').dataset.ed] = el.value; save(); return; }
+    const k = el.dataset && el.dataset.k;
+    if (k) { S.ans[k] = el.value; save(); el.classList.remove('st-ok', 'st-bad', 'st-near'); }
+  });
+  document.addEventListener('scroll', ev => {
+    const el = ev.target;
+    if (el && el.matches && el.matches('.ed textarea')) el.previousElementSibling.firstChild.style.transform = `translateX(${-el.scrollLeft}px)`;
+  }, true);
+  document.addEventListener('change', ev => {
+    const el = ev.target;
+    const p = el.dataset && el.dataset.plan;
+    if (p) { S.plan[p] = el.checked; save(); return; }
+    const st = el.dataset && el.dataset.step;
+    if (st) {
+      S.steps[st] = el.checked; save();
+      const u = currentUnit(); const ei = +el.closest('.exercise').dataset.ex; const e = u.exercises[ei];
+      const all = e.steps.every((_, si) => S.steps[`m-${u.num}-${ei}-${si}`]);
+      const k = u.num + '.' + ei;
+      if (all) award(u, ei, e.xp);
+      else if (S.xp[k]) { delete S.xp[k]; save(); nav(); }
+      refreshTags(u);
+    }
+  });
+  document.addEventListener('keydown', ev => {
+    if (ev.target.matches && ev.target.matches('.ed textarea')) { edKeydown(ev); return; }
+    if (ev.key === 'Enter' && ev.target.matches('input.blank, input.line')) {
+      const all = $$('input.blank, input.line, textarea.line', ev.target.closest('.exercise'));
+      const i = all.indexOf(ev.target);
+      if (i < all.length - 1) all[i + 1].focus(); else $('[data-check]', ev.target.closest('.exercise')).click();
+      ev.preventDefault();
+    }
+  });
+  window.addEventListener('resize', () => sizeEditors());
+  function openSide() { $('#side').classList.add('open'); $('#scrim').hidden = false; }
+  function closeSide() { $('#side').classList.remove('open'); $('#scrim').hidden = true; }
+  $('#menu').addEventListener('click', openSide);
+  $('#scrim').addEventListener('click', closeSide);
+  window.addEventListener('hashchange', render);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => sizeEditors());
+
+  nav();
+  render();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      const ping = () => { const w = reg.active || reg.waiting || reg.installing; if (w && navigator.onLine) w.postMessage('sync'); };
+      navigator.serviceWorker.ready.then(ping);
+    }).catch(() => {});
+  });
+}
+</script>
+</body></html>
